@@ -100,24 +100,23 @@ public class Runigram {
 		}
 		return result;
 	}
+
+	public static Color luminance(Color pixel) {
+		int lum = (int)(0.299*pixel.getRed() + 0.587*pixel.getGreen() + 0.114*pixel.getBlue());
+		return new Color(lum,lum,lum);
+	}
 	
-	// Computes the luminance of the RGB values of the given pixel, using the formula 
-	// lum = 0.299 * r + 0.587 * g + 0.114 * b, and returns a Color object consisting
-	// the three values r = lum, g = lum, b = lum.
-	private static Color luminance(Color pixel) {
-		int lum = (int) (pixel.getRed()*0.299 + pixel.getGreen()*0.587 + pixel.getBlue()*0.114);
-		return new Color(lum, lum, lum); }
-	
-	/**
-	 * Returns an image which is the grayscaled version of the given image.
-	 */
 	public static Color[][] grayScaled(Color[][] image) {
-		Color[][] result = new Color[image.length][image[0].length];
-		for (int row=0; row<image.length; row++) {
-			for (int col=0; col<image[row].length; col++){
-			result[row][col] = luminance(image[row][col]);}
-		}return result;
-	}	
+		int row = image.length;
+		int col = image[0].length;
+		Color[][] newImage = new Color[row][col];
+		for (int i=0; i<row; i++) {
+			for (int j=0; j<col; j++) {
+				newImage[i][j] = luminance(image[i][j]);
+			}
+		}
+		return newImage;
+	}
 	
 	/**
 	 * Returns an image which is the scaled version of the given image. 
