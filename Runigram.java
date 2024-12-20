@@ -125,35 +125,19 @@ public class Runigram {
 	 * Returns an image which is the scaled version of the given image. 
 	 * The image is scaled (resized) to have the given width and height.
 	 */
-	public static Color[][] scaled(Color[][] image, int newWidth, int newHeight) {
-		int oldWidth = image.length;
-		int oldHeight = image[0].length;
-	
-		// Initialize a new image array for the scaled image
-		Color[][] newImage = new Color[newWidth][newHeight];
-	
-		// Compute scaling factors
-		double scaleX = (double) oldWidth / newWidth;
-		double scaleY = (double) oldHeight / newHeight;
-	
-		// Map pixels from the target image to the source image
-		for (int i = 0; i < newWidth; i++) {
-			for (int j = 0; j < newHeight; j++) {
-				// Calculate the corresponding pixel in the source image
-				int srcX = (int)(i * scaleX);
-				int srcY = (int)(j * scaleY);
-	
-				// Make sure the coordinates are within bounds
-				srcX = Math.min(srcX, oldWidth - 1);
-				srcY = Math.min(srcY, oldHeight - 1);
-	
-				// Set the pixel color in the new image
-				newImage[i][j] = image[srcX][srcY];
+	public static Color[][] scaled(Color[][] image, int width, int height) {
+		int oriH = image.length;
+		int oriW = image[0].length;
+		Color[][] newImage = new Color[height][width];
+		for (int i=0; i<height; i++) {
+			for (int j=0; j<width; j++) {
+				newImage[i][j] = image[(int)(i*((double)oriH/height))][(int)(j*((double)oriW/width))];
+				
 			}
 		}
-	
 		return newImage;
 	}
+	
 	
 	
 	/**
